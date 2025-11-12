@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamento | Bout Art Concept - Barbershopp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --yellow: #ffd400;
+      --red: #ff2d2d;
+      --black: #0b0b0b;
+      --white: #fff;
+      --whatsapp: #25D366;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-image: url('unnamed (1).jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: var(--white);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Bangers', cursive;
+      color: var(--yellow);
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    main {
+      background: rgba(0, 0, 0, 0.8);
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      font-family: 'Bangers', cursive;
+      text-align: center;
+      color: var(--yellow);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    input[type="text"], select {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      width: 100%;
+    }
+
+    .servicos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+    }
+
+    .servico {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .servico label {
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    .botao {
+      display: block;
+      background: var(--whatsapp);
+      color: var(--white);
+      text-decoration: none;
+      text-align: center;
+      font-weight: 800;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .botao:hover {
+      background: #20ba5a;
+    }
+
+    .observacao {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bout Art Concept</h1>
+    <p>Agende seu corte com estilo e praticidade 💈</p>
+  </header>
+
+  <main>
+    <h2>Agendamento de Serviços</h2>
+    <form id="agendamentoForm">
+      <label for="nome">Seu nome:</label>
+      <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+      <label>Selecione os serviços desejados:</label>
+      <div class="servicos">
+        <div class="servico"><label><input type="checkbox" value="Corte Simples"> Corte Simples (R$15)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Corte Social (pente 1 a 3)"> Corte Social (R$25)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Corte Disfarçado"> Corte Disfarçado (R$35)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Acabamento"> Acabamento (R$10)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Barba Simples"> Barba Simples (R$10)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Barba Modelada"> Barba Modelada (R$15)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Pigmentação (Cabelo ou Barba)"> Pigmentação (R$10)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Sobrancelha"> Sobrancelha (R$5)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Bigode"> Bigode (R$5)</label></div>
+        <div class="servico"><label><input type="checkbox" value="Platinado / Reflexo"> Platinado / Reflexo (Consultar)</label></div>
+      </div>
+
+      <label for="turno">Escolha o turno:</label>
+      <select id="turno" required>
+        <option value="Manhã">Manhã</option>
+        <option value="Tarde">Tarde</option>
+        <option value="Noite">Noite</option>
+      </select>
+
+      <p style="text-align:center;color:#ffcc00;font-weight:bold;">Horário marcado com taxa de R$5,00 (pagamento antecipado).</p>
+
+      <a href="#" class="botao" id="agendarBtn">Agendar via WhatsApp</a>
+
+      <p class="observacao">Horário marcado só é garantido após pagamento antecipado.</p>
+    </form>
+  </main>
+
+  <script>
+    document.getElementById('agendarBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const turno = document.getElementById('turno').value;
+      const servicosSelecionados = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
+        .map(cb => cb.value).join(', ');
+
+      if (!nome || servicosSelecionados.length === 0) {
+        alert('Por favor, preencha seu nome e selecione ao menos um serviço.');
+        return;
+      }
+
+      const mensagem = `Olá! Meu nome é ${nome}. Quero agendar ${servicosSelecionados} no turno da ${turno}.`;
+      const url = `https://wa.me/5521994858475?text=${encodeURIComponent(mensagem)}`;
+      window.location.href = url;
+    });
+  </script>
+</body>
+</html>
